@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    # This must match the labels in your frontend-deployment.yaml
+    app: frontend-ui
+  ports:
+    - protocol: TCP
+      # The port the service will be available on
+      port: 80
+      # The port on the NGINX pods to send traffic to
+      targetPort: 80
+

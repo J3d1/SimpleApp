@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    # This must match the labels in your backend-deployment.yaml
+    app: backend-api
+  ports:
+    - protocol: TCP
+      # The port the service will be available on
+      port: 8080
+      # The port on the pods to send traffic to
+      targetPort: 8080
+

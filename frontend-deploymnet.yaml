@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 2 # Run two pods for the UI for availability
+  selector:
+    matchLabels:
+      app: frontend-ui
+  template:
+    metadata:
+      labels:
+        app: frontend-ui
+    spec:
+      containers:
+      - name: frontend
+        # IMPORTANT: Replace this with the frontend image you build
+        image: lalalapowa/hostnetix-frontend:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80 # The NGINX default port
+

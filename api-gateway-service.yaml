@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # This name should be unique and descriptive
+  name: api-gateway-service
+spec:
+  # Use LoadBalancer to create an external IP in a cloud environment.
+  # For local setups like Docker Desktop, this will expose the service on localhost.
+  type: LoadBalancer
+  selector:
+    # This selector is crucial. It must match the labels in your
+    # api-gateway-deployment's template section (app: api-gateway).
+    app: api-gateway
+  ports:
+    - protocol: TCP
+      # The port that the service will be exposed on externally.
+      # Port 80 is the standard for HTTP traffic.
+      port: 80
+      # The port on the NGINX pods that traffic will be sent to.
+      targetPort: 80
+

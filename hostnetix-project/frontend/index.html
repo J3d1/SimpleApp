@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostNetix - Service Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>HostNetix Service Dashboard</h1>
+        <p>Location: Panama City, Panama | Current Time: <span id="time"></span></p>
+
+        <div id="status-bar" class="status-bar">
+            <strong>Database Status:</strong> <span id="db-status">Checking...</span>
+        </div>
+
+        <div class="form-container">
+            <h2>Add New Service</h2>
+            <form id="add-service-form" style="display: flex; gap: 10px;">
+                <input type="text" id="hostname" name="hostname" placeholder="Enter Hostname (e.g., server1.hostnetix.com)" required>
+                <input type="text" id="ip_address" name="ip_address" placeholder="Enter Public IP (e.g., 192.0.2.1)" required>
+                <button type="submit" class="btn add">Add Service</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Service Inventory</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hostname</th>
+                        <th>IP Address</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="services-tbody">
+                    <!-- Service rows will be injected here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+

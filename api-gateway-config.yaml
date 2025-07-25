@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  # We give it a new name to reflect its new role
+  name: api-gateway-config
+data:
+  # The key 'nginx.conf' holds the configuration content
+  nginx.conf: |
+    events {}
+    http {
+        server {
+            listen 80;
+
+            # Rule 1: If the URL starts with /api/, send it to the backend
+            location /api/ {
+                # This must match the name of your backend service
+                proxy_pass http://backend-service:8080;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            }
+
+            # Rule 2: For all other URLs, send it to the frontend
+            location / {
+                # This must match the name of your frontend service
+                proxy_pass http://frontend-service:80;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            }
+        }
+    }
+

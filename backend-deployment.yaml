@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: backend-deployment
 spec:
-  replicas: 3 # Creates 3 pods for high availability
+  replicas: 3 # Run three pods for the API for high availability and load balancing
   selector:
     matchLabels:
-      app: express-app
+      app: backend-api
   template:
     metadata:
       labels:
-        app: express-app
+        app: backend-api
     spec:
       containers:
-      - name: app
-        # IMPORTANT: Replace this with your actual image from a registry
-        image: lalalapowa/simpleapp:v3
+      - name: backend
+        # IMPORTANT: Replace this with the backend image you build
+        image: lalalapowa/hostnetix-backend:v1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 8080 # The port your Express app listens on
         env:
         - name: POSTGRES_HOST
           value: db # The name of the PostgreSQL service

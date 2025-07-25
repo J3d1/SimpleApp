@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # This name should be unique and descriptive
+  name: api-gateway-deployment
+spec:
+  replicas: 1 # You can scale this if needed, but one is usually enough for a gateway
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        # The service will use this label to find the pods
+        app: api-gateway
+    spec:
+      containers:
+      - name: nginx-gateway
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config-volume
+          # This is the path inside the container where NGINX looks for its main config
+          mountPath: /etc/nginx/nginx.conf
+          # This tells Kubernetes to mount only the 'nginx.conf' key from the ConfigMap
+          subPath: nginx.conf
+      volumes:
+      - name: nginx-config-volume
+        # This volume is populated by the ConfigMap you have in the Canvas
+        configMap:
+          name: api-gateway-config
+
